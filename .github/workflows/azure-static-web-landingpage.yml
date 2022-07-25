@@ -1,3 +1,5 @@
+# https://docs.microsoft.com/en-us/azure/static-web-apps/build-configuration?tabs=github-actions
+
 name: Azure Static Web Apps CI/CD
 
 on:
@@ -27,9 +29,9 @@ jobs:
           action: "upload"
           ###### Repository/Build Configurations ######
           app_location: "/" # App source code path relative to repository root
-          api_location: "/" # Api source code path relative to repository root - optional
-          output_location: "public" # Built app content directory, relative to app_location - optional
-          ###### End of Repository/Build Configurations ######
+          skip_app_build: true
+          skip_api_build: true
+          output_location: ""
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

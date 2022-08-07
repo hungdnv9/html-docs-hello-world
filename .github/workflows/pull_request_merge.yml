@@ -6,11 +6,14 @@ on:
       - develop
       - master
   pull_request:
-    types: [closed]
+    branches:
+      - develop
+      - master
+    types: [ closed ]
 
 jobs:
   deploy_dev:
-    if: github.ref == 'refs/heads/develop' && github.event.pull_request.merged == true
+    if: github.ref == 'refs/heads/develop' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -20,7 +23,7 @@ jobs:
       if: always()
 
   deploy_prod:
-    if:  github.ref == 'refs/heads/master' && github.event.pull_request.merged == true
+    if:  github.ref == 'refs/heads/master' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

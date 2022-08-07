@@ -1,0 +1,30 @@
+name: Deploy API
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+      - master
+  pull_request:
+    types: [closed]
+
+jobs:
+  deploy_dev:
+    if: github.ref == 'refs/heads/develop' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Post Deployment
+      run: |
+        echo "develop"
+      if: always()
+
+  deploy_prod:
+    if:  github.ref == 'refs/heads/master' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Post Deployment
+      run: |
+        echo "master"
+      if: always()

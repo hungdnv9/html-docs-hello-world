@@ -17,8 +17,8 @@ on:
 jobs:
   develop:
     if: |
-      (contains(github.ref, 'develop') || contains(github.ref, 'feature.new.ci_cd')) && github.event_name == 'workflow_dispatch' ||
-      (contains(github.ref, 'develop') || contains(github.ref, 'feature.new.ci_cd')) && github.event.pull_request.merged == true    
+      (contains(github.ref, 'develop') || contains(github.ref, 'feature.new.ci_cd')) && github.event.pull_request.merged == true ||
+      (contains(github.ref, 'feature.new.ci_cd') && github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -28,9 +28,7 @@ jobs:
         env
 
   product:
-    if: |
-      (contains(github.ref, 'master') || contains(github.ref, 'feature.new.ci_cd')) && github.event_name == 'workflow_dispatch' ||
-      (contains(github.ref, 'master') || contains(github.ref, 'feature.new.ci_cd')) && github.event.pull_request.merged == true
+    if: (contains(github.ref, 'master') || contains(github.ref, 'feature.new.ci_cd')) && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

@@ -10,13 +10,13 @@ on:
 
 jobs:
   deploy_dev:
-    if: github.ref == 'refs/heads/develop' 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Post Deployment
       run: |
         echo "develop"
+        env
       if: always()
 
   deploy_prod:

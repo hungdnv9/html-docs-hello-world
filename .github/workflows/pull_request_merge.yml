@@ -1,9 +1,10 @@
+# Notice:
+# GITHUB_REF=refs/heads/develop => on.push
+# GITHUB_REF=develop => on.pull_request
+
 name: Deploy API
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - develop
   pull_request:
     branches: 
       - master
@@ -13,6 +14,7 @@ on:
 
 jobs:
   deploy_dev:
+    if: github.ref == 'develop' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

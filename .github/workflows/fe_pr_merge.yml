@@ -11,8 +11,8 @@ on:
       - develop
       - feature.new.ci_cd
     types: [closed]
-    paths-ignore:
-      - 'landingpage/**'
+    path:
+      - '!landingpage/**'
 
 jobs:
   develop:

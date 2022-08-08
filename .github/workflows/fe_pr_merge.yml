@@ -11,6 +11,9 @@ on:
       - develop
       - feature.new.ci_cd
     types: [closed]
+    paths:
+     - '!landingpage/**'
+
 jobs:
   develop:
     if: ( github.ref == 'develop' || github.ref == 'feature.new.ci_cd' ) && github.event.pull_request.merged == true

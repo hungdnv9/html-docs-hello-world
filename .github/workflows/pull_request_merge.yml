@@ -1,24 +1,31 @@
+# Notice:
+# GITHUB_REF=refs/heads/develop => on.push
+# GITHUB_REF=develop => on.pull_request
+
 name: Deploy API
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - develop
+  pull_request:
+    branches: 
       - master
+      - develop
+      - cicd
+    types: [closed]
 
 jobs:
   deploy_dev:
-    if: github.ref == 'refs/heads/develop'
+    if: ( github.ref == 'develop' || github.ref == 'cicd' ) && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Post Deployment
       run: |
+        env
         echo "develop"
       if: always()
 
   deploy_prod:
-    if:  github.ref == 'refs/heads/master'
+    if:  github.ref == 'master' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

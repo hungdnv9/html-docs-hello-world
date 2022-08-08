@@ -1,0 +1,40 @@
+# **What it does**: Build, Synce static content Storage Account and Pure CDN endpoint.
+# **Why we have it**: Replace manual deployment.
+# **Who does it impact**: Frontend App. Domains: https://dev.rafft.jp, https://stg.rafft.jp, https://rafft.jp
+
+name: Frontend - CD
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - develop
+      - feature.new.ci_cd
+    types: [closed]
+    path:
+      - '!landingpage/**'
+
+jobs:
+  develop:
+    if: |
+      (contains(github.ref, 'develop') || contains(github.ref, 'feature.new.ci_cd')) && github.event_name == 'workflow_dispatch' ||
+      (contains(github.ref, 'develop') || contains(github.ref, 'feature.new.ci_cd')) && github.event.pull_request.merged == true    
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set environment
+      run: |
+        echo "develop"
+        env
+
+  product:
+    if: |
+      (contains(github.ref, 'master') || contains(github.ref, 'feature.new.ci_cd')) && github.event_name == 'workflow_dispatch' ||
+      (contains(github.ref, 'master') || contains(github.ref, 'feature.new.ci_cd')) && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set environment
+      run: |
+        echo "master"
+        env

@@ -18,7 +18,7 @@ jobs:
   develop:
     if: |
       ((contains(github.ref, 'develop') || contains(github.ref, 'feature.new.ci_cd')) && github.event.pull_request.merged == true) ||
-      ((contains(github.ref, 'develop') || contains(github.ref, 'feature.new.ci_cd')) && github.event_name == 'workflow_dispatch' && contains('["kingthorin","lpoulter"]', github.actor))
+      ((contains(github.ref, 'develop') || contains(github.ref, 'feature.new.ci_cd')) && github.event_name == 'workflow_dispatch' && contains('["kingthorin","hungdnv9"]', github.actor))
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
